@@ -1,8 +1,8 @@
 import React from "react";
 import { Input } from "@nextui-org/react";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import Image from "next/image";
-import Bg from "@/components/auth-pages/assets/bookworm-bg.jpg"
+import Bg from "../../src/assets/bookworm-bg.jpg"
 import Link from "next/link";
 
 export default async function Login() {
