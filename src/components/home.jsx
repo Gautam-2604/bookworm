@@ -28,10 +28,10 @@ export default function Landing() {
 
   return (
     <div className="px-10">
-      <div className="pt-40 w-full flex items-start justify-evenly">
+      <div className="pt-40 w-full flex items-start justify-center gap-20">
         <Popover>
           <PopoverTrigger asChild>
-            <Button className="h-12 lg:h-20 w-40 lg:w-60 text-2xl lg:text-4xl rounded-xl lg:rounded-3xl">Lend Book</Button>
+            <Button className="h-16 w-40 text-2xl rounded-xl">Lend Book</Button>
           </PopoverTrigger>
           <PopoverContent className="w-80 border-none bg-secondary">
             <div className="rounded-xl p-8 flex flex-col items-center gap-5">
@@ -43,7 +43,7 @@ export default function Landing() {
         </Popover>
         <Popover>
           <PopoverTrigger asChild>
-            <Button className="h-12 lg:h-20 w-40 lg:w-60 text-2xl lg:text-4xl rounded-xl lg:rounded-3xl">Borrow Book</Button>
+            <Button className="h-16 w-40 text-2xl rounded-xl">Borrow Book</Button>
           </PopoverTrigger>
           <PopoverContent className="w-80 border-none bg-secondary">
             <div className="rounded-xl p-8 flex flex-col items-center gap-5">
@@ -57,7 +57,7 @@ export default function Landing() {
       <h1 className="text-4xl text-white w-full text-center py-10">Listed Books</h1>
 
       <Tabs defaultValue="lend" className="w-full">
-        <TabsList className="flex justify-evenly lg:w-1/2 w-11/12 translate-x-3 lg:translate-x-[400px] mb-10">
+        <TabsList className="flex justify-center w-full lg:w-1/2 lg:mx-80 mb-10">
           <TabsTrigger value="lend" className="w-96">To Lend</TabsTrigger>
           <TabsTrigger value="borrow" className="w-96">To Borrow</TabsTrigger>
         </TabsList>
