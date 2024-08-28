@@ -17,9 +17,7 @@ export async function POST(req) {
             return new Response(JSON.stringify({ message: 'Book not found' }), { status: 400 });
         }
 
-        if(book){
-            await Book.findOneAndDelete({name})
-        }
+        
 
         // Find the users who own this book
         const userBooks = await User.find({ ownedBooks: book._id });
