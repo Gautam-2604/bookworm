@@ -10,9 +10,7 @@ const bookSchema = new Schema({
         type: String,
         required: true
     },
-    ownerId:{
-        type: String
-    }
+    
     
 })
 

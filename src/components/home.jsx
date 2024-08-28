@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+'use client'
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@nextui-org/react";
 import { Label } from "@/components/ui/label";
@@ -16,30 +17,31 @@ import {
 import axios from "axios";
 
 export default function Landing() {
-    
-  const [book, setBook] = useState("");
+  const [name, setName] = useState("")
   const [author, setAuthor] = useState("");
+  const [lendBooks, setLendBooks] = useState([]);
+  const [borrowBooks, setBorrowBooks] = useState([]);
 
-  const handleLend = async()=>{
-    try
-      {const response = await axios.post('/api/uploadBook',{book, author})
-    console.log(response.data);}
-    catch{
+  const handleLend = async () => {
+    try {
+      console.log('hejgkjkhgf');
+      const response = await axios.post('/api/uploadLend', { name, author });
+      
+      setLendBooks([...lendBooks, { user: 'Current User', bookName: name, author }]);
+    } catch (error) {
       console.error("Error uploading:", error);
     }
   }
 
-  const handleBorrow = async()=>{
-    try
-      {const response = await axios.post('/api/requestBook',{book, author})
-    console.log(response.data);}
-    catch{
+  const handleBorrow = async () => {
+    try {
+      const response = await axios.post('/api/requestBook', { name, author });
+      console.log(response.data);
+      setBorrowBooks([...borrowBooks, { user: 'Current User', bookName: name, author }]);
+    } catch (error) {
       console.error("Error uploading:", error);
     }
   }
-
-
-  
 
   return (
     <div className="px-10">
@@ -50,8 +52,8 @@ export default function Landing() {
           </PopoverTrigger>
           <PopoverContent className="w-80 border-none bg-secondary">
             <div className="rounded-xl p-8 flex flex-col items-center gap-5">
-              <Input type="text" color="primary" label="Book Name" variant="bordered" value={book} onChange={(e)=>setBook(e.target.value)} />
-              <Input type="text" color="primary" label="Author" variant="bordered" value={author} onChange={(e)=>setAuthor(e.target.value)} />
+              <Input type="text" color="primary" label="Name" variant="bordered" value={name} onChange={(e) => setName(e.target.value)} />
+              <Input type="text" color="primary" label="Author" variant="bordered" value={author} onChange={(e) => setAuthor(e.target.value)} />
               <Button className="active:scale-75 transform duration-500 bg-white hover:bg-white text-secondary" onClick={handleLend}>Lend</Button>
             </div>
           </PopoverContent>
@@ -62,8 +64,8 @@ export default function Landing() {
           </PopoverTrigger>
           <PopoverContent className="w-80 border-none bg-secondary">
             <div className="rounded-xl p-8 flex flex-col items-center gap-5">
-              <Input type="text" color="primary" label="Book Name" variant="bordered" value={book} onChange={(e)=>setBook(e.target.value)} />
-              <Input type="text" color="primary" label="Author" variant="bordered" value={author} onChange={(e)=>setAuthor(e.target.value)} />
+              <Input type="text" color="primary" label="Book Name" variant="bordered" value={name} onChange={(e) => setName(e.target.value)} />
+              <Input type="text" color="primary" label="Author" variant="bordered" value={author} onChange={(e) => setAuthor(e.target.value)} />
               <Button className="active:scale-75 transform duration-500 bg-white hover:bg-white text-secondary" onClick={handleBorrow}>Borrow</Button>
             </div>
           </PopoverContent>
