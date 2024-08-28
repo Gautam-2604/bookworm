@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@nextui-org/react";
-import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
@@ -15,31 +14,46 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import axios from "axios";
+import { useToast } from "./ui/use-toast";
 
 export default function Landing() {
   const [name, setName] = useState("")
   const [author, setAuthor] = useState("");
   const [lendBooks, setLendBooks] = useState([]);
   const [borrowBooks, setBorrowBooks] = useState([]);
-
+  const {toast} = useToast();
   const handleLend = async () => {
+    
     try {
-      console.log('hejgkjkhgf');
       const response = await axios.post('/api/uploadLend', { name, author });
-      
+      toast({
+        title:"Succesfully uploaded",
+        type: "default"
+      })
       setLendBooks([...lendBooks, { user: 'Current User', bookName: name, author }]);
     } catch (error) {
       console.error("Error uploading:", error);
+      toast({
+        description:"error",
+        type: "desctructive"
+      })
     }
   }
 
-  const handleBorrow = async () => {
+  const handleBorrow = async (req, res) => {
     try {
       const response = await axios.post('/api/requestBook', { name, author });
-      console.log(response.data);
-      setBorrowBooks([...borrowBooks, { user: 'Current User', bookName: name, author }]);
+      toast({
+        description:"book found",
+        variant: "default"
+      })
+      setBorrowBooks(...borrowBooks,[ { user: 'Current User', bookName: name, author }]);
     } catch (error) {
-      console.error("Error uploading:", error);
+      console.error("Error Requesting:", error);
+      toast({
+        description:"error",
+        type: "destructive"
+      })
     }
   }
 

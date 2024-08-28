@@ -1,9 +1,11 @@
 import User from "@/models/userModel";
 import dbConnect from "@/utils/dbConnect";
 import bcrypt from "bcryptjs";
+import { useToast } from "@/components/ui/use-toast";
 
 
 export async function POST(req){
+    const {toast} = useToast()
     await dbConnect();
     const {username, password,email} = await req.json();
     try {
@@ -24,6 +26,12 @@ export async function POST(req){
         return new Response(JSON.stringify({ message: 'New User saved' }, token), { status: 200 });
     } catch (error) {
         console.log(error);
+        toast({
+            description:{error},
+            variant:"destructive"
+        })
         return new Response(JSON.stringify({ message: 'Internal error' }), { status: 500 });
+        
+
     }
 }

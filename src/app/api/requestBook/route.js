@@ -14,7 +14,11 @@ export async function POST(req) {
         // Find the book by name and author
         const book = await Book.findOne({ name, author });
         if (!book) {
-            return new Response(JSON.stringify({ message: 'Book not found' }), { status: 404 });
+            return new Response(JSON.stringify({ message: 'Book not found' }), { status: 400 });
+        }
+
+        if(book){
+            await Book.findOneAndDelete({name})
         }
 
         // Find the users who own this book
@@ -24,7 +28,7 @@ export async function POST(req) {
         const usernames = userBooks.map(user => user.username);
 
         // Return the usernames to the frontend
-        return new Response(JSON.stringify({ usernames }), { status: 200 });
+        return new Response(JSON.stringify("book found",{usernames}), { status: 200 });
 
     } catch (error) {
         console.error(error);
