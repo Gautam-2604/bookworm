@@ -2,14 +2,20 @@
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import Router, { useRouter } from "next/router";
 import Image from "next/image";
 import Lg from "../../src/assets/logo.png"
 // import { usePathname } from "next/navigation";
 
 export default async function Header() {
-
-    // const pathname = usePathname();
-    // const isActive = (route) => pathname === route;
+    const router = useRouter();
+    const handleLogout = async ()=>{
+        await fetch('/api/logout', {
+            method: 'POST',
+          });
+          router.push('/signin');
+        };
+    
 
     return (
         <>
@@ -19,7 +25,7 @@ export default async function Header() {
                     <Link href="/" className={`text-sm text-neutral-500 uppercase ${isActive("/")?"font-bold scale-150":"font-medium scale-100"} p-1`}>Lend</Link>
                     <Link href="/" className={`text-sm text-neutral-500 uppercase ${isActive("/")?"font-bold scale-150":"font-medium scale-100"} p-1`}>Borrow</Link>
                 </div> */}
-                <Button className="active:scale-75 transform duration-500 bg-white hover:bg-white text-secondary">Log out</Button>
+                <Button className="active:scale-75 transform duration-500 bg-white hover:bg-white text-secondary" onClick={handleLogout}>Log out</Button>
             </div>
         </>
     )

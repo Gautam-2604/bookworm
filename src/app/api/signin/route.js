@@ -15,8 +15,8 @@ export async function POST(req){
         if(!isPasswordCorrect){
             return new Response(JSON.stringify({ message: 'Incorrect password/Username' }), { status: 400 });
         }
-
-        return new Response(JSON.stringify({ message: 'logged in successfully' }), { status: 200 });
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        return new Response(JSON.stringify({ message: 'logged in successfully' }, token), { status: 200 });
     } catch (error) {
         console.log(error);
         return new Response(JSON.stringify({ message: 'Internal error' }), { status: 500 });

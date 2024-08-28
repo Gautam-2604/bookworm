@@ -17,10 +17,11 @@ export async function POST(req){
         }
         const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
-
+       
         const newUser = new User({username, password: hashedPassword, email});
+        const token = jwt.sign({ userId: newUser._id, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
         await newUser.save();
-        return new Response(JSON.stringify({ message: 'New User saved' }), { status: 200 });
+        return new Response(JSON.stringify({ message: 'New User saved' }, token), { status: 200 });
     } catch (error) {
         console.log(error);
         return new Response(JSON.stringify({ message: 'Internal error' }), { status: 500 });
