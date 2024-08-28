@@ -14,12 +14,8 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    bookUpload:{
-        type:[String]
-    },
-    bookRequest:{
-        type:[String]
-    }
+  ownedBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
+  
 })
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

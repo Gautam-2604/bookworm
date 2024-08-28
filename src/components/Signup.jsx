@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import Bg from "../../src/assets/bookworm-bg.jpg"
 import Link from "next/link";
+import axios from "axios";
 
 export default async function Signup() {
     const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ export default async function Signup() {
             const response = await axios.post(`/api/signup`, { email, password, username });
             console.log(response.data);
         } catch (error) {
-            console.error("Error subscribing:", error);
+            console.error("Error signing up:", error);
         }
     }
     return (
