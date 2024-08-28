@@ -1,4 +1,4 @@
-// "use client"
+"use client"
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -7,13 +7,13 @@ import Image from "next/image";
 import Lg from "../../src/assets/logo.png"
 // import { usePathname } from "next/navigation";
 
-export default async function Header() {
-    const router = useRouter();
+export default function Header() {
+    
     const handleLogout = async ()=>{
         await fetch('/api/logout', {
             method: 'POST',
           });
-          router.push('/signin');
+          
         };
     
 

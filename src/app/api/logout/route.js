@@ -1,13 +1,11 @@
 export async function POST(req, res) {
     try {
-      res.setHeader('Set-Cookie', [
-        'token=; Max-Age=0; HttpOnly; Path=/',
-      ]);
+      
   
-      return res.status(200).json({ message: 'Logged out successfully' });
+      return new Response(JSON.stringify({ message: 'Logged Out' }), { status: 200 });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ message: 'Internal Server Error' });
+      return new Response(JSON.stringify({ message: 'Internal error' }), { status: 500 });
     }
   }
   
